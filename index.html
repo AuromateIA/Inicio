@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auromate IA - Tu CFO Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth; 
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); 
+        }
+        .secondary-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(107, 114, 128, 0.2);
+        }
+        .section-title {
+            padding-bottom: 8px;
+            display: inline-block;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px; 
+            height: 4px;
+            background-color: #3b82f6; 
+            border-radius: 2px;
+        }
+        .solution-card, .pricing-card { 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e5e7eb; 
+        }
+        .solution-card:hover, .pricing-card:hover { 
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* --- Estilos para el Mockup de iPhone y Chat --- */
+        .iphone-mockup {
+            position: relative;
+            width: 320px;
+            height: 660px;
+            margin: auto;
+            border: 12px solid #1f2937; 
+            border-radius: 40px; 
+            background-color: #f9fafb; 
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; 
+        }
+        .iphone-notch {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 25px;
+            background-color: #1f2937; 
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 10;
+        }
+        .chat-window {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            padding-top: 35px; 
+        }
+        .chat-messages {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto; 
+            scrollbar-width: none;
+        }
+        .chat-messages::-webkit-scrollbar {
+            display: none;
+        }
+        .chat-bubble {
+            padding: 10px 16px;
+            border-radius: 18px;
+            max-width: 80%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            font-size: 0.9rem;
+        }
+        .chat-bubble.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .ai-bubble {
+            background-color: #e5e7eb; 
+            color: #1f2937;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .user-bubble {
+            background-color: #3b82f6; 
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .typing-indicator.visible {
+            opacity: 1;
+        }
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background-color: #9ca3af;
+            border-radius: 50%;
+            animation: typing 1.2s infinite ease-in-out;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+        /* --- Animaciones y Navegación --- */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-innovative-in {
+            animation: innovative-in 1s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes innovative-in {
+            from { opacity: 0; transform: translateY(25px); filter: blur(4px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        #hero-text-container {
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+        #hero-text-container.scrolled-out {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        
+        .nav-link.active {
+            color: #2563eb; 
+            font-weight: 600; 
+        }
+        .navbar-scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            background-color: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(8px);
+        }
+
+        /* --- Estilos para el interruptor de precios --- */
+        .pricing-toggle button.active {
+            background-color: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+        }
+        .pricing-toggle button {
+            transition: all 0.3s ease;
+        }
+        .pricing-plans-wrapper {
+            position: relative;
+        }
+        .pricing-card-container {
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+            transform-origin: center;
+        }
+        .pricing-card-container.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            visibility: hidden;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+        .whatsapp-button:hover {
+             box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); 
+        }
+        
+        /* --- Botón Innovador --- */
+        .innovative-cta {
+            background: linear-gradient(45deg, #22c55e, #16a34a); /* Green gradient */
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px; /* Pill shape */
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem; 
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.25), 0 0 0 0 rgba(34, 197, 94, 0.7);
+            animation: pulse-animation 2s infinite;
+            transition: all 0.3s ease-in-out;
+        }
+        .innovative-cta:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(34, 197, 94, 0.35);
+            animation: none; 
+        }
+        @keyframes pulse-animation {
+            0% {
+                box-shadow: 0 10px 20px rgba(34, 197, 94, 0.25), 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+            70% {
+                box-shadow: 0 10px 20px rgba(34, 197, 94, 0.25), 0 0 0 10px rgba(34, 197, 94, 0);
+            }
+            100% {
+                box-shadow: 0 10px 20px rgba(34, 197, 94, 0.25), 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+
+    <nav id="navbar" class="fixed w-full z-20 top-0 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#inicio" class="text-3xl font-extrabold text-blue-600">Auromate IA</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#soluciones" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Soluciones</a>
+                <a href="#ventajas" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Ventajas</a>
+                <a href="#planes" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Planes</a>
+                <a href="#seguridad" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Seguridad</a>
+                <a href="#contacto" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Contacto</a>
+            </div>
+            <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="hidden md:inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg cta-button">Chatea con Auro</a>
+        </div>
+    </nav>
+
+    <header id="inicio" class="bg-white pt-36 pb-20 md:pt-40 md:pb-28 min-h-screen flex items-center">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+            <div id="hero-text-container" class="text-center md:text-left px-4 md:px-0">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-5 text-gray-900 animate-innovative-in">
+                    El control de tus finanzas, con un gerente financiero.
+                </h1>
+                <p class="text-lg md:text-xl mb-10 text-gray-600 max-w-xl mx-auto md:mx-0 animate-innovative-in" style="animation-delay: 0.2s;">
+                    Automatiza tus finanzas, toma mejores decisiones y duerme tranquilo. Con Auromate IA, el poder está en tu bolsillo.
+                </p>
+                <div class="flex justify-center md:justify-start items-center space-x-4 animate-innovative-in" style="animation-delay: 0.4s;">
+                    <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="innovative-cta">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
+                        <span>Chatea con Auro</span>
+                    </a>
+                </div>
+            </div>
+            <div class="fade-in-up delay-3">
+                <div class="iphone-mockup">
+                    <div class="iphone-notch"></div>
+                    <div class="chat-window">
+                        <div class="chat-messages" id="chat-messages">
+                            <div id="typing-indicator" class="chat-bubble typing-indicator">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="soluciones" class="py-20 md:py-28 bg-gray-50/70">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 md:mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold section-title text-gray-900 fade-in-up">Decisiones a ciegas vs. Claridad total</h2>
+                <p class="text-center text-gray-600 mt-6 max-w-3xl mx-auto text-lg fade-in-up delay-1">
+                    Atendemos los dos mayores dolores de cabeza financieros para pymes y personas, con una solución simple y poderosa.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-10 md:gap-16">
+                <div class="solution-card bg-white p-8 md:p-10 rounded-2xl shadow-xl fade-in-up delay-2">
+                     <h3 class="text-3xl font-bold mb-4 text-blue-700">Para tu Empresa: Auromate</h3>
+                     <p class="font-semibold text-gray-800 mb-2">El Problema:</p>
+                     <p class="text-gray-600 text-base leading-relaxed mb-6">
+                        Las pymes sin un CFO toman decisiones financieras a ciegas, basándose en intuición y hojas de Excel complicadas, arriesgando la rentabilidad y el crecimiento.
+                     </p>
+                     <p class="font-semibold text-gray-800 mb-2">La Solución:</p>
+                     <p class="text-gray-600 text-base leading-relaxed">
+                        <span class="font-bold">Auromate</span> es tu gerente financiero digital. Automatiza el análisis, genera reportes inteligentes y responde tus preguntas financieras por WhatsApp, 24/7.
+                     </p>
+                </div>
+                <div class="solution-card bg-white p-8 md:p-10 rounded-2xl shadow-xl fade-in-up delay-3">
+                    <h3 class="text-3xl font-bold mb-4 text-green-700">Para tu Vida: Auro</h3>
+                     <p class="font-semibold text-gray-800 mb-2">El Problema:</p>
+                     <p class="text-gray-600 text-base leading-relaxed mb-6">
+                        Los profesionales no saben a dónde se va su dinero, luchan por ahorrar y se sienten abrumados por la gestión de sus finanzas personales.
+                     </p>
+                     <p class="font-semibold text-gray-800 mb-2">La Solución:</p>
+                     <p class="text-gray-600 text-base leading-relaxed">
+                        <span class="font-bold">Auro</span> es tu asistente financiero personal. Organiza tus gastos, te ayuda a crear y cumplir metas de ahorro y te da coaching financiero automatizado para mejorar tus hábitos.
+                     </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ventajas" class="py-20 md:py-28 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 md:mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold section-title text-gray-900 fade-in-up">Hecho para LATAM, simple para todos</h2>
+                 <p class="text-center text-gray-600 mt-6 max-w-3xl mx-auto text-lg fade-in-up delay-1">
+                    A diferencia de otras herramientas, hablamos tu idioma y entendemos tus necesidades.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center fade-in-up delay-2">
+                    <div class="flex items-center justify-center mx-auto w-20 h-20 bg-blue-100 rounded-full mb-5"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" /></svg></div>
+                    <h3 class="text-xl font-bold mb-2">Interacción Natural</h3>
+                    <p class="text-gray-600">Habla con tu dinero. Resuelve dudas y obtén reportes vía WhatsApp, voz o texto, sin menús complicados.</p>
+                </div>
+                 <div class="text-center fade-in-up delay-3">
+                    <div class="flex items-center justify-center mx-auto w-20 h-20 bg-blue-100 rounded-full mb-5"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 2.25c.621 0 1.125-.504 1.125-1.125V18c0-.621-.504-1.125-1.125-1.125H3.75m1.5-1.5L5.625 18l1.875-1.5m-3 0h3.75M3 16.5V7.5m18 9V7.5" /></svg></div>
+                    <h3 class="text-xl font-bold mb-2">Personalización Total</h3>
+                    <p class="text-gray-600">Configuración modular adaptada a ti. No necesitas saber contabilidad para tener el control total.</p>
+                </div>
+                 <div class="text-center fade-in-up delay-4">
+                    <div class="flex items-center justify-center mx-auto w-20 h-20 bg-blue-100 rounded-full mb-5"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg></div>
+                    <h3 class="text-xl font-bold mb-2">Conexión sin Esfuerzo</h3>
+                    <p class="text-gray-600">Se integra con las herramientas que ya usas: Excel, Notion, bases de datos y tus cuentas bancarias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impacto" class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-8 text-center">
+                <div class="fade-in-up delay-1">
+                    <p class="text-5xl font-extrabold">+600</p>
+                    <p class="text-lg text-blue-200">Errores contables detectados al mes</p>
+                </div>
+                <div class="fade-in-up delay-2">
+                    <p class="text-5xl font-extrabold">+100</p>
+                    <p class="text-lg text-blue-200">Pymes salvadas de sanciones tributarias</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="planes" class="py-20 md:py-28 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl md:text-5xl font-bold section-title text-gray-900 fade-in-up">Planes para cada etapa de crecimiento</h2>
+                <p class="text-center text-gray-600 mt-6 max-w-2xl mx-auto text-lg fade-in-up delay-1">
+                    Transparencia total. Sin costos ocultos. Elige tu camino.
+                </p>
+            </div>
+
+            <div class="flex justify-center mb-12 fade-in-up delay-2">
+                <div class="pricing-toggle bg-gray-200 rounded-full p-1 flex items-center">
+                    <button id="b2c-toggle" class="px-6 py-2 text-sm md:text-base font-semibold rounded-full active">Auro (Para ti)</button>
+                    <button id="b2b-toggle" class="px-6 py-2 text-sm md:text-base font-semibold rounded-full text-gray-600">Auromate (Empresa)</button>
+                </div>
+            </div>
+
+            <div class="pricing-plans-wrapper">
+                <div id="pricing-b2c" class="pricing-card-container grid md:grid-cols-3 gap-8">
+                    <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left">
+                        <h3 class="text-2xl font-bold text-gray-800">Auro Basic</h3>
+                        <p class="text-5xl font-extrabold my-4">$9 <span class="text-lg font-medium text-gray-500">/mes</span></p>
+                        <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Integración con Whatsapp</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Coaching financiero</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Registro de ingresos y egresos en su memoria</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Recomendaciones a final de mes</li>
+                        </ul>
+                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
+                            Chatea con Auro
+                        </a>
+                    </div>
+                    <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left">
+                        <h3 class="text-2xl font-bold text-gray-800">Auro Pro</h3>
+                        <p class="text-5xl font-extrabold my-4">$15 <span class="text-lg font-medium text-gray-500">/mes</span></p>
+                        <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todo Auro Básico</li>
+                             <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Más capacidad</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Reportes y recomendaciones semanales</li>
+                        </ul>
+                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
+                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
+                            Chatea con Auro
+                        </a>
+                    </div>
+                    <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left border-2 border-green-600 shadow-xl relative">
+                        <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs font-semibold px-4 py-1 rounded-full">MÁS POPULAR</span>
+                        <h3 class="text-2xl font-bold text-gray-800">Auro Elite</h3>
+                        <p class="text-5xl font-extrabold my-4">$18 <span class="text-lg font-medium text-gray-500">/mes</span></p>
+                        <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todo Auro Pro</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>2 conexiones de Auro con tus aplicaciones</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Automatizaciones</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Registro de ingresos y egresos en base de datos</li>
+                        </ul>
+                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
+                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
+                            Chatea con Auro
+                        </a>
+                    </div>
+                </div>
+
+                <div id="pricing-b2b" class="pricing-card-container grid md:grid-cols-3 gap-8 hidden">
+                    <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left">
+                        <h3 class="text-2xl font-bold text-gray-800">Esencial</h3>
+                        <p class="text-5xl font-extrabold my-4">$79 <span class="text-lg font-medium text-gray-500">/mes</span></p>
+                        <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
+                           <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Análisis y reportes automáticos</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Alertas de flujo de caja</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Conexión con 1 sistema contable</li>
+                             <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Soporte estándar por WhatsApp</li>
+                        </ul>
+                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
+                            Chatea con Auromate
+                        </a>
+                    </div>
+                     <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left border-2 border-blue-600 shadow-xl relative">
+                        <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-semibold px-4 py-1 rounded-full">RECOMENDADO</span>
+                        <h3 class="text-2xl font-bold text-gray-800">Profesional</h3>
+                        <p class="text-5xl font-extrabold my-4">$99 <span class="text-lg font-medium text-gray-500">/mes</span></p>
+                        <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todo del plan Esencial</li>
+                             <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Auditor IA y revisión de errores</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Alertas avanzadas de impuestos</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Soporte prioritario por WhatsApp</li>
+                        </ul>
+                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
+                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
+                            Chatea con Auromate
+                        </a>
+                    </div>
+                    <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left">
+                        <h3 class="text-2xl font-bold text-gray-800">Corporativo</h3>
+                        <p class="text-5xl font-extrabold my-4">$120 <span class="text-lg font-medium text-gray-500">/mes</span></p>
+                         <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todo del plan Profesional</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Integraciones avanzadas con múltiples apps</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Acceso a API</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Soporte dedicado y SLA</li>
+                        </ul>
+                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
+                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
+                            Chatea con Auromate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="seguridad" class="py-20 md:py-28 bg-gray-50/70">
+        <div class="container mx-auto px-6 text-center">
+             <div class="flex items-center justify-center mx-auto w-20 h-20 bg-gray-200 rounded-full mb-5 fade-in-up delay-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg></div>
+            <h2 class="text-4xl md:text-5xl font-bold section-title text-gray-900 fade-in-up delay-2">Tu confianza es nuestra prioridad</h2>
+            <p class="text-center text-gray-600 mt-6 max-w-2xl mx-auto text-lg fade-in-up delay-3">
+                Manejamos tus datos contables y financieros bajo estrictos contratos de confidencialidad (NDA) y con integraciones seguras de nivel mundial.
+            </p>
+            <div class="mt-8 text-gray-500 font-medium fade-in-up delay-4">Integraciones seguras con: OpenAI, Notion, Supabase & Evolution API</div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-20 md:py-28 bg-white"> 
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 md:mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold section-title text-gray-900 fade-in-up">¿Listo para tomar el control?</h2>
+                <p class="text-gray-600 mt-6 max-w-xl mx-auto text-lg fade-in-up delay-1">
+                    El primer paso hacia la claridad financiera está a un clic de distancia.
+                </p>
+            </div>
+            <div class="text-center fade-in-up delay-2">
+                 <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="innovative-cta">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
+                    <span>Chatea con Auro</span>
+                </a>
+            </div>
+             <div class="text-center mt-16 fade-in-up delay-3">
+                <p class="text-gray-700 text-lg">O si prefieres, escríbenos a:</p>
+                <p class="text-blue-600 font-semibold text-xl mt-3 hover:underline">
+                    <a href="mailto:gerencia@auromate.shop">gerencia@auromate.shop</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-16">
+        <div class="container mx-auto px-6 text-center">
+            <a href="#inicio" class="text-2xl font-bold text-white hover:text-blue-400 transition-colors duration-300">Auromate IA</a>
+            <p class="my-4 text-gray-500">&copy; <span id="currentYear"></span> Auromate IA. Todos los derechos reservados.</p>
+            <p class="text-sm">Finanzas inteligentes para LATAM.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const b2cToggle = document.getElementById('b2c-toggle');
+            const b2bToggle = document.getElementById('b2b-toggle');
+            const b2cCards = document.getElementById('pricing-b2c');
+            const b2bCards = document.getElementById('pricing-b2b');
+
+            if(b2cToggle && b2bToggle && b2cCards && b2bCards) {
+                b2cToggle.addEventListener('click', () => {
+                    b2cToggle.classList.add('active');
+                    b2bToggle.classList.remove('active');
+                    b2cCards.classList.remove('hidden');
+                    b2bCards.classList.add('hidden');
+                });
+
+                b2bToggle.addEventListener('click', () => {
+                    b2bToggle.classList.add('active');
+                    b2cToggle.classList.remove('active');
+                    b2bCards.classList.remove('hidden');
+                    b2cCards.classList.add('hidden');
+                });
+            }
+
+            const chatMessagesContainer = document.getElementById('chat-messages');
+            if (chatMessagesContainer) {
+                const typingIndicator = document.getElementById('typing-indicator');
+                const conversation = [
+                    { from: 'user', text: 'Ugh, otra vez me quedé sin plata antes de la quincena. ¿En qué se me fue el dinero?' },
+                    { from: 'ai', text: 'Hola! Veo que este mes tus gastos en \'Didi Food\' y \'Salidas\' aumentaron un 30%. 🍔' },
+                    { from: 'ai', text: 'Si reducimos un poco, podrías ahorrar $250.000 COP para tu meta de \'Viaje a Cartagena\' ✈️.' },
+                    { from: 'user', text: 'Wow, increíble. ¿Cómo empezamos?' },
+                    { from: 'ai', text: 'Fácil. He creado un presupuesto inteligente para ti. ¿Quieres verlo?' }
+                ];
+                let messageIndex = 0;
+                function showTyping() { if (typingIndicator) typingIndicator.classList.add('visible'); }
+                function hideTyping() { if (typingIndicator) typingIndicator.classList.remove('visible'); }
+                function addMessage() {
+                    if (messageIndex >= conversation.length) {
+                        setTimeout(() => {
+                            if (chatMessagesContainer) {
+                                chatMessagesContainer.innerHTML = '';
+                                if (typingIndicator) chatMessagesContainer.appendChild(typingIndicator);
+                                messageIndex = 0;
+                                addMessage();
+                            }
+                        }, 5000);
+                        return;
+                    }
+                    const message = conversation[messageIndex];
+                    const bubble = document.createElement('div');
+                    bubble.textContent = message.text;
+                    bubble.className = `chat-bubble ${message.from === 'user' ? 'user-bubble' : 'ai-bubble'}`;
+                    const nextMessageIsAi = conversation[messageIndex + 1] && conversation[messageIndex + 1].from === 'ai';
+                    const autoScroll = () => {
+                        setTimeout(() => {
+                            bubble.classList.add('visible');
+                            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+                        }, 100);
+                    };
+                    if (message.from === 'user') {
+                        chatMessagesContainer.insertBefore(bubble, typingIndicator);
+                        autoScroll();
+                        if (nextMessageIsAi) setTimeout(showTyping, 600);
+                    } else {
+                        hideTyping();
+                        chatMessagesContainer.insertBefore(bubble, typingIndicator);
+                        autoScroll();
+                        if (nextMessageIsAi) setTimeout(showTyping, 1000);
+                    }
+                    messageIndex++;
+                    const delay = message.text.length * 50 + 1500;
+                    setTimeout(addMessage, delay);
+                }
+                setTimeout(() => { showTyping(); setTimeout(addMessage, 1500); }, 1000);
+            }
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    formMessage.textContent = 'Enviando tu solicitud...';
+                    formMessage.className = 'mt-6 text-center text-blue-600';
+                    setTimeout(() => {
+                        formMessage.textContent = '¡Gracias! Hemos recibido tu solicitud. Te contactaremos pronto.';
+                        formMessage.className = 'mt-6 text-center text-green-600 font-semibold';
+                        contactForm.reset();
+                    }, 2000);
+                });
+            }
+
+            const navbar = document.getElementById('navbar');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id], header[id]'); 
+            const heroText = document.getElementById('hero-text-container');
+            function handleScroll() {
+                if (heroText) {
+                    const triggerPoint = window.innerHeight * 0.4;
+                    if (window.scrollY > triggerPoint) {
+                        heroText.classList.add('scrolled-out');
+                    } else {
+                        heroText.classList.remove('scrolled-out');
+                    }
+                }
+                let currentSectionId = '';
+                const navHeight = navbar.offsetHeight; 
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navHeight - 50;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionBottom) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+                if (!currentSectionId && window.pageYOffset < sections[0].offsetTop) {
+                    currentSectionId = sections[0].getAttribute('id');
+                }
+                if (window.scrollY > 50) {
+                    navbar.classList.add('navbar-scrolled');
+                } else {
+                    navbar.classList.remove('navbar-scrolled');
+                }
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('load', handleScroll); 
+            window.addEventListener('resize', handleScroll);
+            const animatedElements = document.querySelectorAll('.fade-in-up, .animate-innovative-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => {
+                el.style.animationPlayState = 'paused'; 
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
