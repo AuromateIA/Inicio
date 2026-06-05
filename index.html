@@ -1,658 +1,453 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auromate IA - Tu CFO Digital</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth; 
-        }
-        .cta-button {
-            transition: all 0.3s ease;
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); 
-        }
-        .secondary-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(107, 114, 128, 0.2);
-        }
-        .section-title {
-            padding-bottom: 8px;
-            display: inline-block;
-            position: relative;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px; 
-            height: 4px;
-            background-color: #3b82f6; 
-            border-radius: 2px;
-        }
-        .solution-card, .pricing-card { 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #e5e7eb; 
-        }
-        .solution-card:hover, .pricing-card:hover { 
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* --- Estilos para el Mockup de iPhone y Chat --- */
-        .iphone-mockup {
-            position: relative;
-            width: 320px;
-            height: 660px;
-            margin: auto;
-            border: 12px solid #1f2937; 
-            border-radius: 40px; 
-            background-color: #f9fafb; 
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden; 
-        }
-        .iphone-notch {
-            position: absolute;
-            top: 0px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 160px;
-            height: 25px;
-            background-color: #1f2937; 
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-            z-index: 10;
-        }
-        .chat-window {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 16px;
-            padding-top: 35px; 
-        }
-        .chat-messages {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            overflow-y: auto; 
-            scrollbar-width: none;
-        }
-        .chat-messages::-webkit-scrollbar {
-            display: none;
-        }
-        .chat-bubble {
-            padding: 10px 16px;
-            border-radius: 18px;
-            max-width: 80%;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            font-size: 0.9rem;
-        }
-        .chat-bubble.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .ai-bubble {
-            background-color: #e5e7eb; 
-            color: #1f2937;
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
-        .user-bubble {
-            background-color: #3b82f6; 
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
-        .typing-indicator {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .typing-indicator.visible {
-            opacity: 1;
-        }
-        .typing-indicator span {
-            width: 8px;
-            height: 8px;
-            background-color: #9ca3af;
-            border-radius: 50%;
-            animation: typing 1.2s infinite ease-in-out;
-        }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typing {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1.0); }
-        }
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auromate — Infraestructura Comercial Automatizada</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #eef1fa;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 20px;
+}
+:root {
+  --ac: #315bf6;
+  --ac-d: #1e3fd4;
+  --ac-bg: rgba(49,91,246,0.07);
+  --ac-border: rgba(49,91,246,0.18);
+  --bg: #ffffff;
+  --bg2: #f5f7fc;
+  --bg3: #eaedfa;
+  --border: #dde3f2;
+  --text1: #0d1329;
+  --text2: #4a5278;
+  --text3: #8b93b8;
+  --danger: #d93535;
+  --gold: #c07500;
+  --gold-bg: rgba(192,117,0,0.07);
+  --gold-border: rgba(192,117,0,0.22);
+  --green: #1a9e5c;
+  --green-bg: rgba(26,158,92,0.07);
+  --green-border: rgba(26,158,92,0.2);
+}
 
-        /* --- Animaciones y Navegación --- */
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-innovative-in {
-            animation: innovative-in 1s ease-out forwards;
-            opacity: 0;
-        }
-        @keyframes innovative-in {
-            from { opacity: 0; transform: translateY(25px); filter: blur(4px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-        #hero-text-container {
-            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-        }
-        #hero-text-container.scrolled-out {
-            opacity: 0;
-            transform: translateY(-20px);
-            pointer-events: none;
-        }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        
-        .nav-link.active {
-            color: #2563eb; 
-            font-weight: 600; 
-        }
-        .navbar-scrolled {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            background-color: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(8px);
-        }
+.wrap {
+  background: var(--bg);
+  border-radius: 20px;
+  box-shadow: 0 8px 48px rgba(49,91,246,0.10), 0 1px 4px rgba(0,0,0,0.04);
+  max-width: 940px;
+  width: 100%;
+  overflow: hidden;
+}
 
-        /* --- Estilos para el interruptor de precios --- */
-        .pricing-toggle button.active {
-            background-color: #3b82f6;
-            color: white;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
-        }
-        .pricing-toggle button {
-            transition: all 0.3s ease;
-        }
-        .pricing-plans-wrapper {
-            position: relative;
-        }
-        .pricing-card-container {
-            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-            transform-origin: center;
-        }
-        .pricing-card-container.hidden {
-            opacity: 0;
-            transform: scale(0.95);
-            visibility: hidden;
-            position: absolute;
-            width: 100%;
-            top: 0;
-            left: 0;
-        }
-        .whatsapp-button {
-             background-color: #25D366;
-        }
-        .whatsapp-button:hover {
-             background-color: #1DA851;
-             box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); 
-        }
-        
-        /* --- Botón Innovador --- */
-        .innovative-cta {
-            background: linear-gradient(45deg, #22c55e, #16a34a); /* Green gradient */
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 9999px; /* Pill shape */
-            font-size: 1.25rem; 
-            font-weight: 700; 
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem; 
-            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.25), 0 0 0 0 rgba(34, 197, 94, 0.7);
-            animation: pulse-animation 2s infinite;
-            transition: all 0.3s ease-in-out;
-        }
-        .innovative-cta:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 25px rgba(34, 197, 94, 0.35);
-            animation: none; 
-        }
-        @keyframes pulse-animation {
-            0% {
-                box-shadow: 0 10px 20px rgba(34, 197, 94, 0.25), 0 0 0 0 rgba(34, 197, 94, 0.7);
-            }
-            70% {
-                box-shadow: 0 10px 20px rgba(34, 197, 94, 0.25), 0 0 0 10px rgba(34, 197, 94, 0);
-            }
-            100% {
-                box-shadow: 0 10px 20px rgba(34, 197, 94, 0.25), 0 0 0 0 rgba(34, 197, 94, 0);
-            }
-        }
-    </style>
+/* ── TOPBAR ── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 28px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ac); box-shadow: 0 0 0 3px var(--ac-bg); }
+.brand-name { font-size: 20px; font-weight: 700; color: var(--text1); letter-spacing: -0.3px; }
+.brand-name em { color: var(--ac); font-style: normal; }
+.brand-sub { font-size: 11px; color: var(--text3); margin-left: 6px; letter-spacing: 0.3px; }
+.top-pill {
+  font-size: 11px; padding: 6px 14px; border-radius: 20px;
+  background: var(--green-bg); color: var(--green);
+  border: 1px solid var(--green-border); font-weight: 600;
+  display: flex; align-items: center; gap: 5px;
+}
+
+/* ── MODE BAR ── */
+.modebar {
+  display: flex; gap: 8px; align-items: center;
+  padding: 12px 28px; border-bottom: 1px solid var(--border); background: var(--bg2);
+}
+.modebar span { font-size: 12px; color: var(--text2); }
+.tab { font-size: 12px; padding: 5px 16px; border-radius: 8px; border: 1px solid var(--border); background: #fff; color: var(--text2); cursor: pointer; font-weight: 500; }
+.tab.active { background: var(--ac); color: #fff; border-color: var(--ac); }
+
+/* ── EDIT PANEL ── */
+.edit-panel { padding: 20px 28px; background: var(--bg2); border-bottom: 1px solid var(--border); display: none; }
+.esec { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin: 14px 0 8px; }
+.esec:first-child { margin-top: 0; }
+.egrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+.ef { display: flex; flex-direction: column; gap: 4px; }
+.ef label { font-size: 11px; color: var(--text2); font-weight: 500; }
+.ef input { font-size: 13px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--border); background: #fff; color: var(--text1); width: 100%; }
+.ef input:focus { outline: none; border-color: var(--ac); }
+
+/* ── CONTENT ── */
+.content { padding: 24px 28px 28px; }
+
+/* ── HERO ENTRY ── */
+.hero {
+  background: linear-gradient(135deg, var(--ac) 0%, #1e3fd4 100%);
+  border-radius: 16px;
+  padding: 24px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.hero-left {}
+.hero-eyebrow { font-size: 11px; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 6px; }
+.hero-price { font-size: 48px; font-weight: 800; color: #fff; letter-spacing: -1px; line-height: 1; }
+.hero-price-sub { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 6px; }
+.hero-right { text-align: right; }
+.hero-tag {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 10px; padding: 10px 18px; display: inline-block;
+  font-size: 13px; color: #fff; font-weight: 600; margin-bottom: 8px;
+}
+.hero-note { font-size: 11px; color: rgba(255,255,255,0.55); max-width: 200px; text-align: right; line-height: 1.5; }
+
+/* ── PHASES ── */
+.phases-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.phases { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-bottom: 16px; }
+.phase {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+  position: relative;
+}
+.phase.active { background: #fff; border-color: var(--ac-border); box-shadow: 0 2px 12px var(--ac-bg); }
+.phase-num {
+  font-size: 10px; font-weight: 700; color: var(--ac); text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+}
+.phase-num-circle {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--ac);
+  color: #fff; font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.phase-num-circle.two { background: var(--text2); }
+.phase-num-circle.three { background: var(--green); }
+.phase-label { font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 8px; }
+.phase-price { font-size: 22px; font-weight: 800; color: var(--text1); line-height: 1.1; }
+.phase-price.ac { color: var(--ac); }
+.phase-price.green { color: var(--green); }
+.phase-sub { font-size: 10px; color: var(--text3); margin-top: 3px; margin-bottom: 10px; }
+.phase-desc { font-size: 11px; color: var(--text2); line-height: 1.55; border-top: 1px solid var(--border); padding-top: 10px; }
+.phase-items { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.phase-items li { font-size: 11px; color: var(--text2); display: flex; align-items: flex-start; gap: 6px; }
+.phase-items li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ac); margin-top: 5px; flex-shrink: 0; }
+.phase-items li.green::before { background: var(--green); }
+
+/* ── FREE MONTH BADGE ── */
+.free-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--gold-bg); border: 1px solid var(--gold-border);
+  border-radius: 8px; padding: 6px 10px;
+  margin-top: 10px; width: 100%;
+}
+.free-badge-icon { font-size: 13px; color: var(--gold); flex-shrink: 0; }
+.free-badge-text { font-size: 10px; color: var(--gold); font-weight: 600; line-height: 1.4; }
+
+/* ── SAVING BANNER ── */
+.saving-banner {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.saving-inner { display: flex; align-items: center; gap: 16px; }
+.saving-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--ac-bg); border: 1px solid var(--ac-border); display: flex; align-items: center; justify-content: center; color: var(--ac); font-size: 18px; flex-shrink: 0; }
+.saving-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; }
+.saving-num { font-size: 20px; font-weight: 700; color: var(--text1); }
+.saving-pct {
+  font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 10px;
+  background: var(--ac); color: #fff; white-space: nowrap;
+}
+
+/* ── GRID 2 ── */
+.grid2 { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: 12px; }
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+.card-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.right-col { display: flex; flex-direction: column; gap: 10px; }
+
+/* ── INCLUDES ── */
+.includes { display: flex; flex-direction: column; gap: 5px; }
+.inc-row { display: flex; align-items: center; gap: 9px; padding: 8px 11px; background: #fff; border-radius: 8px; border: 1px solid var(--border); }
+.inc-text { font-size: 12px; color: var(--text1); flex: 1; }
+.tag-inc { font-size: 10px; padding: 2px 9px; border-radius: 20px; background: var(--ac-bg); color: var(--ac); border: 1px solid var(--ac-border); white-space: nowrap; flex-shrink: 0; font-weight: 600; }
+.tag-gift { font-size: 10px; padding: 2px 9px; border-radius: 20px; background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-border); white-space: nowrap; flex-shrink: 0; font-weight: 600; }
+.sep { display: flex; align-items: center; gap: 8px; margin: 5px 0 3px; }
+.sep span { font-size: 10px; color: var(--gold); font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; }
+.sep::before, .sep::after { content: ''; flex: 1; height: 1px; background: var(--gold-border); }
+
+/* ── COMPARE ── */
+.cmp-rows { display: flex; flex-direction: column; }
+.cmp-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); }
+.cmp-row:last-child { border-bottom: none; }
+.cmp-label { font-size: 12px; color: var(--text2); }
+.cmp-val { font-size: 12px; font-weight: 600; color: var(--danger); }
+.cmp-total { display: flex; justify-content: space-between; padding: 9px 0 0; border-top: 1px solid var(--bg3); margin-top: 2px; }
+.bar-wrap { margin-top: 10px; }
+.bar-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--text3); margin-bottom: 4px; }
+.bar-track { height: 7px; background: var(--bg3); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+.bar-fill { height: 100%; border-radius: 4px; }
+
+/* ── FOOTER ── */
+.footer {
+  display: flex; justify-content: space-between;
+  padding-top: 14px; border-top: 1px solid var(--border); margin-top: 16px;
+}
+.footer-text { font-size: 11px; color: var(--text3); }
+</style>
 </head>
-<body class="bg-white text-gray-900">
+<body>
+<div class="wrap">
 
-    <nav id="navbar" class="fixed w-full z-20 top-0 transition-all duration-300">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#inicio" class="text-3xl font-extrabold text-blue-600">Auromate IA</a>
-            <div class="hidden md:flex space-x-6">
-                <a href="#soluciones" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Soluciones</a>
-                <a href="#ventajas" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Ventajas</a>
-                <a href="#planes" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Planes</a>
-                <a href="#seguridad" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Seguridad</a>
-                <a href="#contacto" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium">Contacto</a>
-            </div>
-            <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="hidden md:inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg cta-button">Chatea con Auro</a>
-            
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-800 hover:text-blue-600 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
-            </div>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div class="brand-name">auro<em>mate</em></div>
+      <span class="brand-sub">— infraestructura comercial automatizada</span>
+    </div>
+    <div class="top-pill"><i class="ti ti-building-store"></i> Implementación en 21–30 días</div>
+  </div>
+
+  <!-- MODE BAR -->
+  <div class="modebar">
+    <span>Modo:</span>
+    <button class="tab active" id="btn-preview" onclick="setMode('preview')">Vista previa</button>
+    <button class="tab" id="btn-edit" onclick="setMode('edit')">Editar contenido</button>
+  </div>
+
+  <!-- EDIT PANEL -->
+  <div id="edit-panel" class="edit-panel">
+    <div class="esec">Empresa</div>
+    <div class="egrid">
+      <div class="ef"><label>Nombre empresa</label><input id="e-brand" value="auromate" oninput="render()"></div>
+    </div>
+    <div class="esec">Fase 1 — Inicio</div>
+    <div class="egrid">
+      <div class="ef"><label>Precio entrada</label><input id="e-f1" value="$2.500.000" oninput="render()"></div>
+      <div class="ef"><label>Nota pie fase 1</label><input id="e-f1s" value="Para iniciar el desarrollo del sistema" oninput="render()"></div>
+    </div>
+    <div class="esec">Fase 2 — Entrega</div>
+    <div class="egrid">
+      <div class="ef"><label>Saldo al entregar</label><input id="e-f2a" value="$2.300.000" oninput="render()"></div>
+    </div>
+    <div class="esec">Fase 3 — Mensualidad</div>
+    <div class="egrid">
+      <div class="ef"><label>Mensualidad (mayor)</label><input id="e-f3a" value="$1.200.000" oninput="render()"></div>
+      <div class="ef"><label>Mensualidad (menor)</label><input id="e-f3b" value="$1.000.000" oninput="render()"></div>
+    </div>
+    <div class="esec">Ahorro</div>
+    <div class="egrid">
+      <div class="ef"><label>Ahorro mensual</label><input id="e-saving" value="~$20.000.000 COP / mes" oninput="render()"></div>
+      <div class="ef"><label>% ahorro</label><input id="e-pct" value="−94% del costo" oninput="render()"></div>
+    </div>
+    <div class="esec">Comparativa nómina</div>
+    <div class="egrid">
+      <div class="ef"><label>Cargo 1</label><input id="e-c1l" value="Analista de datos" oninput="render()"></div>
+      <div class="ef"><label>Costo cargo 1</label><input id="e-c1v" value="~$7.000.000" oninput="render()"></div>
+      <div class="ef"><label>Cargo 2</label><input id="e-c2l" value="Asesor rentas / bot" oninput="render()"></div>
+      <div class="ef"><label>Costo cargo 2</label><input id="e-c2v" value="~$7.000.000" oninput="render()"></div>
+      <div class="ef"><label>Cargo 3</label><input id="e-c3l" value="Coordinador comercial" oninput="render()"></div>
+      <div class="ef"><label>Costo cargo 3</label><input id="e-c3v" value="~$4.000.000" oninput="render()"></div>
+      <div class="ef"><label>Cargo 4</label><input id="e-c4l" value="Community Manager" oninput="render()"></div>
+      <div class="ef"><label>Costo cargo 4</label><input id="e-c4v" value="~$3.500.000" oninput="render()"></div>
+      <div class="ef"><label>Total nómina</label><input id="e-ntotal" value="+$21.500.000" oninput="render()"></div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow">Empieza desde</div>
+        <div class="hero-price" id="v-f1">$2.500.000</div>
+        <div class="hero-price-sub">y completa la inversión durante el proceso</div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-tag"><i class="ti ti-layers-subtract" style="margin-right:5px;"></i>Inversión por etapas</div>
+        <div class="hero-note">Sin comprometer todo el capital desde el inicio</div>
+      </div>
+    </div>
+
+    <!-- PHASES -->
+    <div class="phases-title">Estructura de inversión</div>
+    <div class="phases">
+      <!-- FASE 1 -->
+      <div class="phase active">
+        <div class="phase-num"><div class="phase-num-circle">1</div> Fase 1 — Inicio</div>
+        <div class="phase-price ac" id="v-f1b">$2.500.000</div>
+        <div class="phase-sub" id="v-f1s">Para iniciar el desarrollo del sistema</div>
+        <ul class="phase-items">
+          <li>Sistema configurado a medida</li>
+          <li>Infraestructura lista en 21–30 días</li>
+          <li>Dashboard automatizado</li>
+          <li>Bot de ventas WhatsApp</li>
+          <li>Base de datos y segmentación</li>
+        </ul>
+      </div>
+
+      <!-- FASE 2 -->
+      <div class="phase">
+        <div class="phase-num"><div class="phase-num-circle two">2</div> Fase 2 — Entrega</div>
+        <div class="phase-price" id="v-f2">$2.300.000</div>
+        <div class="phase-sub">Al recibir el sistema completo</div>
+        <ul class="phase-items">
+          <li>Entrega de todas las herramientas</li>
+          <li>Capacitación y onboarding</li>
+          <li>Activación del bot y dashboard</li>
+          <li>Pruebas y ajustes finales</li>
+          <li>Sistema 100% operativo</li>
+        </ul>
+      </div>
+
+      <!-- FASE 3 -->
+      <div class="phase">
+        <div class="phase-num"><div class="phase-num-circle three">3</div> Fase 3 — Operación</div>
+        <div class="phase-price green" id="v-f3">$1.200.000</div>
+        <div class="phase-sub" id="v-f3s">Desde $1.000.000 / mes</div>
+        <ul class="phase-items">
+          <li class="green">Mantenimiento continuo</li>
+          <li class="green">Actualizaciones y mejoras</li>
+          <li class="green">Soporte, APIs y servidores</li>
+          <li class="green">Monitoreo permanente</li>
+          <li class="green">Optimización constante</li>
+        </ul>
+        <div class="free-badge">
+          <i class="ti ti-gift free-badge-icon"></i>
+          <span class="free-badge-text">1 mes gratis al momento de la entrega del sistema</span>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
-            <a href="#soluciones" class="block text-gray-700 hover:bg-gray-100 py-3 px-6">Soluciones</a>
-            <a href="#ventajas" class="block text-gray-700 hover:bg-gray-100 py-3 px-6">Ventajas</a>
-            <a href="#planes" class="block text-gray-700 hover:bg-gray-100 py-3 px-6">Planes</a>
-            <a href="#seguridad" class="block text-gray-700 hover:bg-gray-100 py-3 px-6">Seguridad</a>
-            <a href="#contacto" class="block text-gray-700 hover:bg-gray-100 py-3 px-6">Contacto</a>
+      </div>
+    </div>
+
+    <!-- SAVING BANNER — solo ahorro, sin totales grandes -->
+    <div class="saving-banner">
+      <div class="saving-inner">
+        <div class="saving-icon"><i class="ti ti-coin"></i></div>
+        <div>
+          <div class="saving-label">Ahorras desde</div>
+          <div class="saving-num" id="v-saving">~$20.000.000 COP / mes</div>
         </div>
-    </nav>
+      </div>
+      <div class="saving-pct" id="v-pct">−94% del costo</div>
+    </div>
 
-    <header id="inicio" class="bg-white pt-36 pb-20 md:pt-40 md:pb-28 min-h-screen flex items-center">
-        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            <div id="hero-text-container" class="text-center md:text-left px-4 md:px-0">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-5 text-gray-900 animate-innovative-in">
-                    El control de tus finanzas, con un gerente financiero.
-                </h1>
-                <p class="text-lg md:text-xl mb-10 text-gray-600 max-w-xl mx-auto md:mx-0 animate-innovative-in" style="animation-delay: 0.2s;">
-                    Automatiza tus finanzas, toma mejores decisiones y duerme tranquilo. Con Auromate IA, el poder está en tu bolsillo.
-                </p>
-                <div class="flex justify-center md:justify-start items-center space-x-4 animate-innovative-in" style="animation-delay: 0.4s;">
-                    <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="innovative-cta">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
-                        <span>Chatea con Auro</span>
-                    </a>
-                </div>
-            </div>
-            <div class="fade-in-up delay-3 mt-10 md:mt-0">
-                <div class="iphone-mockup">
-                    <div class="iphone-notch"></div>
-                    <div class="chat-window">
-                        <div class="chat-messages" id="chat-messages">
-                            <div id="typing-indicator" class="chat-bubble typing-indicator">
-                                <span></span><span></span><span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- INCLUDES + COMPARE -->
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">¿Qué incluye el sistema?</div>
+        <div class="includes">
+          <div class="inc-row"><i class="ti ti-database" style="font-size:14px;color:var(--ac);flex-shrink:0;"></i><span class="inc-text">Base de datos y segmentación</span><span class="tag-inc">Incluido</span></div>
+          <div class="inc-row"><i class="ti ti-chart-dots" style="font-size:14px;color:var(--ac);flex-shrink:0;"></i><span class="inc-text">Métricas punto físico en tiempo real</span><span class="tag-inc">Incluido</span></div>
+          <div class="inc-row"><i class="ti ti-layout-dashboard" style="font-size:14px;color:var(--ac);flex-shrink:0;"></i><span class="inc-text">Dashboard automatizado</span><span class="tag-inc">Incluido</span></div>
+          <div class="inc-row"><i class="ti ti-brand-whatsapp" style="font-size:14px;color:var(--ac);flex-shrink:0;"></i><span class="inc-text">Estrategia WhatsApp y fidelización</span><span class="tag-inc">Incluido</span></div>
+          <div class="inc-row"><i class="ti ti-robot" style="font-size:14px;color:var(--ac);flex-shrink:0;"></i><span class="inc-text">Asesor ventas WhatsApp</span><span class="tag-inc">Incluido</span></div>
+          <div class="sep"><span>🎁 De regalo</span></div>
+          <div class="inc-row"><i class="ti ti-speakerphone" style="font-size:14px;color:var(--gold);flex-shrink:0;"></i><span class="inc-text">Análisis comercial y buyer person</span><span class="tag-gift">Regalo</span></div>
+          <div class="inc-row"><i class="ti ti-target" style="font-size:14px;color:var(--gold);flex-shrink:0;"></i><span class="inc-text">Desarrollo estrategia comercial</span><span class="tag-gift">Regalo</span></div>
+          <div class="inc-row"><i class="ti ti-heart-handshake" style="font-size:14px;color:var(--gold);flex-shrink:0;"></i><span class="inc-text">Estrategia de fidelización</span><span class="tag-gift">Regalo</span></div>
         </div>
-    </header>
+      </div>
 
-    <section id="soluciones" class="py-20 md:py-28 bg-gray-50/70">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 md:mb-20">
-                <h2 class="text-3xl md:text-5xl font-bold section-title text-gray-900 fade-in-up">Decisiones a ciegas vs. Claridad total</h2>
-                <p class="text-center text-gray-600 mt-6 max-w-3xl mx-auto text-lg fade-in-up delay-1">
-                    Atendemos los dos mayores dolores de cabeza financieros para pymes y personas, con una solución simple y poderosa.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
-                <div class="solution-card bg-white p-8 md:p-10 rounded-2xl shadow-xl fade-in-up delay-2">
-                     <h3 class="text-2xl md:text-3xl font-bold mb-4 text-blue-700">Para tu Empresa: Auromate</h3>
-                     <p class="font-semibold text-gray-800 mb-2">El Problema:</p>
-                     <p class="text-gray-600 text-base leading-relaxed mb-6">
-                        Las pymes sin un CFO toman decisiones financieras a ciegas, basándose en intuición y hojas de Excel complicadas, arriesgando la rentabilidad y el crecimiento.
-                     </p>
-                     <p class="font-semibold text-gray-800 mb-2">La Solución:</p>
-                     <p class="text-gray-600 text-base leading-relaxed">
-                        <span class="font-bold">Auromate</span> es tu gerente financiero digital. Automatiza el análisis, genera reportes inteligentes y responde tus preguntas financieras por WhatsApp, 24/7.
-                     </p>
-                </div>
-                <div class="solution-card bg-white p-8 md:p-10 rounded-2xl shadow-xl fade-in-up delay-3">
-                    <h3 class="text-2xl md:text-3xl font-bold mb-4 text-green-700">Para tu Vida: Auro</h3>
-                     <p class="font-semibold text-gray-800 mb-2">El Problema:</p>
-                     <p class="text-gray-600 text-base leading-relaxed mb-6">
-                        Los profesionales no saben a dónde se va su dinero, luchan por ahorrar y se sienten abrumados por la gestión de sus finanzas personales.
-                     </p>
-                     <p class="font-semibold text-gray-800 mb-2">La Solución:</p>
-                     <p class="text-gray-600 text-base leading-relaxed">
-                        <span class="font-bold">Auro</span> es tu asistente financiero personal. Organiza tus gastos, te ayuda a crear y cumplir metas de ahorro y te da coaching financiero automatizado para mejorar tus hábitos.
-                     </p>
-                </div>
-            </div>
+      <div class="right-col">
+        <!-- COMPARE -->
+        <div class="card">
+          <div class="card-title">Sin Auromate — nómina mensual</div>
+          <div class="cmp-rows" id="v-cmp"><div class="cmp-row"><span class="cmp-label">Analista de datos</span><span class="cmp-val">~$7.000.000</span></div><div class="cmp-row"><span class="cmp-label">Asesor rentas / bot</span><span class="cmp-val">~$7.000.000</span></div><div class="cmp-row"><span class="cmp-label">Coordinador comercial</span><span class="cmp-val">~$4.000.000</span></div><div class="cmp-row"><span class="cmp-label">Community Manager</span><span class="cmp-val">~$3.500.000</span></div><div class="cmp-total"><span style="font-size:13px;font-weight:600;color:#0d1329;">Total nómina</span><span style="font-size:15px;font-weight:700;color:var(--danger);">+$21.500.000</span></div></div>
+          <div class="bar-wrap">
+            <div class="bar-label"><span>Con Auromate</span><span>Sin Auromate</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:6%;background:var(--ac);"></div></div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--danger);"></div></div>
+          </div>
         </div>
-    </section>
 
-    <section id="ventajas" class="py-20 md:py-28 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 md:mb-20">
-                <h2 class="text-3xl md:text-5xl font-bold section-title text-gray-900 fade-in-up">Hecho para LATAM, simple para todos</h2>
-                 <p class="text-center text-gray-600 mt-6 max-w-3xl mx-auto text-lg fade-in-up delay-1">
-                    A diferencia de otras herramientas, hablamos tu idioma y entendemos tus necesidades.
-                </p>
+        <!-- PHILOSOPHY CARD -->
+        <div class="card" style="background:linear-gradient(135deg,#f7f9ff 0%,#eef1fb 100%);">
+          <div class="card-title" style="color:var(--ac);">No estás comprando software</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:flex-start;gap:9px;padding:8px 10px;background:#fff;border-radius:8px;border:1px solid var(--border);">
+              <i class="ti ti-rocket" style="font-size:15px;color:var(--ac);flex-shrink:0;margin-top:1px;"></i>
+              <div style="font-size:12px;color:var(--text1);font-weight:500;">Infraestructura comercial completa</div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center fade-in-up delay-2 p-4">
-                    <div class="flex items-center justify-center mx-auto w-20 h-20 bg-blue-100 rounded-full mb-5"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" /></svg></div>
-                    <h3 class="text-xl font-bold mb-2">Interacción Natural</h3>
-                    <p class="text-gray-600">Habla con tu dinero. Resuelve dudas y obtén reportes vía WhatsApp, voz o texto, sin menús complicados.</p>
-                </div>
-                 <div class="text-center fade-in-up delay-3 p-4">
-                    <div class="flex items-center justify-center mx-auto w-20 h-20 bg-blue-100 rounded-full mb-5"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 2.25c.621 0 1.125-.504 1.125-1.125V18c0-.621-.504-1.125-1.125-1.125H3.75m1.5-1.5L5.625 18l1.875-1.5m-3 0h3.75M3 16.5V7.5m18 9V7.5" /></svg></div>
-                    <h3 class="text-xl font-bold mb-2">Personalización Total</h3>
-                    <p class="text-gray-600">Configuración modular adaptada a ti. No necesitas saber contabilidad para tener el control total.</p>
-                </div>
-                 <div class="text-center fade-in-up delay-4 p-4">
-                    <div class="flex items-center justify-center mx-auto w-20 h-20 bg-blue-100 rounded-full mb-5"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg></div>
-                    <h3 class="text-xl font-bold mb-2">Conexión sin Esfuerzo</h3>
-                    <p class="text-gray-600">Se integra con las herramientas que ya usas: Excel, Notion, bases de datos y tus cuentas bancarias.</p>
-                </div>
+            <div style="display:flex;align-items:flex-start;gap:9px;padding:8px 10px;background:#fff;border-radius:8px;border:1px solid var(--border);">
+              <i class="ti ti-users-group" style="font-size:15px;color:var(--ac);flex-shrink:0;margin-top:1px;"></i>
+              <div style="font-size:12px;color:var(--text1);font-weight:500;">Un equipo completo en un solo sistema</div>
             </div>
+            <div style="display:flex;align-items:flex-start;gap:9px;padding:8px 10px;background:#fff;border-radius:8px;border:1px solid var(--border);">
+              <i class="ti ti-clock-24" style="font-size:15px;color:var(--ac);flex-shrink:0;margin-top:1px;"></i>
+              <div style="font-size:12px;color:var(--text1);font-weight:500;">Trabaja 24/7 sin pausa, sin nómina</div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:9px;padding:8px 10px;background:#fff;border-radius:8px;border:1px solid var(--border);">
+              <i class="ti ti-chart-line" style="font-size:15px;color:var(--ac);flex-shrink:0;margin-top:1px;"></i>
+              <div style="font-size:12px;color:var(--text1);font-weight:500;">Decisión financieramente inteligente</div>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <section id="impacto" class="py-16 bg-blue-600 text-white">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
-                <div class="fade-in-up delay-1">
-                    <p class="text-4xl md:text-5xl font-extrabold">+600</p>
-                    <p class="text-lg text-blue-200">Errores contables detectados al mes</p>
-                </div>
-                <div class="fade-in-up delay-2">
-                    <p class="text-4xl md:text-5xl font-extrabold">+100</p>
-                    <p class="text-lg text-blue-200">Pymes salvadas de sanciones tributarias</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- FOOTER -->
+    <div class="footer">
+      <span class="footer-text">Inversión por fases para facilitar el inicio sin comprometer liquidez</span>
+      <span class="footer-text">auromate · automatización inteligente</span>
+    </div>
 
-    <section id="planes" class="py-20 md:py-28 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl md:text-5xl font-bold section-title text-gray-900 fade-in-up">Planes para cada etapa de crecimiento</h2>
-                <p class="text-center text-gray-600 mt-6 max-w-2xl mx-auto text-lg fade-in-up delay-1">
-                    Transparencia total. Sin costos ocultos. Elige tu camino.
-                </p>
-            </div>
+  </div>
+</div>
 
-            <div class="flex justify-center mb-12 fade-in-up delay-2">
-                <div class="pricing-toggle bg-gray-200 rounded-full p-1 flex items-center">
-                    <button id="b2c-toggle" class="px-6 py-2 text-sm md:text-base font-semibold rounded-full active">Auro (Para ti)</button>
-                    <button id="b2b-toggle" class="px-6 py-2 text-sm md:text-base font-semibold rounded-full text-gray-600">Auromate (Empresa)</button>
-                </div>
-            </div>
+<script>
+function g(id){ return document.getElementById(id); }
+function val(id){ return g(id)?g(id).value:''; }
 
-            <div class="pricing-plans-wrapper">
-                <div id="pricing-b2c" class="pricing-card-container grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left">
-                        <h3 class="text-2xl font-bold text-gray-800">Auro Basic</h3>
-                        <p class="text-4xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold my-4">$12.000 <span class="text-lg font-medium text-gray-500">COP/mes</span></p>
-                        <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Integración con Whatsapp</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Coaching financiero personalizado</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Registro de ingresos y gastos</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Recordatorios</li>
-                            <li class="flex items-start text-gray-400"><svg class="w-5 h-5 text-red-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>Sin alertas financieras</li>
-                            <li class="flex items-start text-gray-400"><svg class="w-5 h-5 text-red-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>Sin reportes automáticos</li>
-                        </ul>
-                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
-                            Chatea con Auro
-                        </a>
-                    </div>
-                    <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left">
-                        <h3 class="text-2xl font-bold text-gray-800">Auro Pro</h3>
-                        <p class="text-4xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold my-4">$18.000 <span class="text-lg font-medium text-gray-500">COP/mes</span></p>
-                        <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todo Auro Básico</li>
-                             <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Reporte financiero mensual</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Mayor capacidad de procesamiento</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Recomendaciones de hábitos</li>
-                             <li class="flex items-start text-gray-400"><svg class="w-5 h-5 text-red-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>Sin alertas financieras personales</li>
-                        </ul>
-                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
-                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
-                            Chatea con Auro
-                        </a>
-                    </div>
-                    <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left border-2 border-green-600 shadow-xl relative">
-                        <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs font-semibold px-4 py-1 rounded-full">MÁS POPULAR</span>
-                        <h3 class="text-2xl font-bold text-gray-800">Auro Elite</h3>
-                        <p class="text-4xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold my-4">$20.000 <span class="text-lg font-medium text-gray-500">COP/mes</span></p>
-                        <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todo Auro Pro</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Alertas financieras</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Reportes semanales</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Análisis predictivo de gastos</li>
-                        </ul>
-                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
-                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
-                            Chatea con Auro
-                        </a>
-                    </div>
-                </div>
+function render(){
+  var brand=val('e-brand'), half=Math.floor(brand.length/2);
+  g('v-brand') && (g('v-brand').innerHTML=brand.slice(0,half)+'<em>'+brand.slice(half)+'</em>');
+  g('v-f1').textContent=val('e-f1');
+  g('v-f1b').textContent=val('e-f1');
+  g('v-f1s').textContent=val('e-f1s');
+  g('v-f2').textContent=val('e-f2a');
+  g('v-f3').textContent=val('e-f3a');
+  g('v-f3s').textContent='Desde '+val('e-f3b')+' / mes';
+  g('v-saving').textContent=val('e-saving');
+  g('v-pct').textContent=val('e-pct');
 
-                <div id="pricing-b2b" class="pricing-card-container flex justify-center hidden">
-                     <div class="pricing-card bg-white p-8 rounded-2xl flex flex-col text-left md:w-2/3 lg:w-1/2">
-                        <h3 class="text-2xl font-bold text-gray-800">Auromate Enterprise</h3>
-                        <p class="text-4xl md:text-5xl font-extrabold my-4">Personalizado</p>
-                        <p class="text-gray-500 mb-6">Una solución a la medida de las necesidades de tu empresa.</p>
-                        <ul class="space-y-3 mb-8 text-gray-600 flex-grow">
-                           <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todas las funciones de Auromate</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Integraciones avanzadas y acceso a API</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Consultoría estratégica IA</li>
-                            <li class="flex items-start"><svg class="w-5 h-5 text-green-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Soporte dedicado y SLA</li>
-                        </ul>
-                        <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="mt-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 w-full rounded-lg text-lg cta-button whatsapp-button text-center flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
-                            Chatea con Auromate
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  var cmp=g('v-cmp'); cmp.innerHTML='';
+  [['e-c1l','e-c1v'],['e-c2l','e-c2v'],['e-c3l','e-c3v'],['e-c4l','e-c4v']].forEach(function(r){
+    var lbl=val(r[0]),v=val(r[1]); if(!lbl) return;
+    var d=document.createElement('div'); d.className='cmp-row';
+    d.innerHTML='<span class="cmp-label">'+lbl+'</span><span class="cmp-val">'+v+'</span>';
+    cmp.appendChild(d);
+  });
+  var tot=document.createElement('div'); tot.className='cmp-total';
+  tot.innerHTML='<span style="font-size:13px;font-weight:600;color:#0d1329;">Total nómina</span><span style="font-size:15px;font-weight:700;color:var(--danger);">'+val('e-ntotal')+'</span>';
+  cmp.appendChild(tot);
+}
 
-     <section id="seguridad" class="py-20 md:py-28 bg-gray-50/70">
-        <div class="container mx-auto px-6 text-center">
-             <div class="flex items-center justify-center mx-auto w-20 h-20 bg-gray-200 rounded-full mb-5 fade-in-up delay-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg></div>
-            <h2 class="text-3xl md:text-5xl font-bold section-title text-gray-900 fade-in-up delay-2">Tu confianza es nuestra prioridad</h2>
-            <p class="text-center text-gray-600 mt-6 max-w-2xl mx-auto text-lg fade-in-up delay-3">
-                Manejamos tus datos contables y financieros bajo estrictos contratos de confidencialidad (NDA) y con integraciones seguras de nivel mundial.
-            </p>
-            <div class="mt-8 text-gray-500 font-medium fade-in-up delay-4">Integraciones seguras con: OpenAI, Notion, Supabase & Evolution API</div>
-        </div>
-    </section>
+function setMode(m){
+  if(m==='edit'){
+    g('edit-panel').style.display='block';
+    g('btn-edit').classList.add('active');
+    g('btn-preview').classList.remove('active');
+  } else {
+    g('edit-panel').style.display='none';
+    g('btn-preview').classList.add('active');
+    g('btn-edit').classList.remove('active');
+  }
+}
 
-    <section id="contacto" class="py-20 md:py-28 bg-white"> 
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 md:mb-20">
-                <h2 class="text-3xl md:text-5xl font-bold section-title text-gray-900 fade-in-up">¿Listo para tomar el control?</h2>
-                <p class="text-gray-600 mt-6 max-w-xl mx-auto text-lg fade-in-up delay-1">
-                    El primer paso hacia la claridad financiera está a un clic de distancia.
-                </p>
-            </div>
-            <div class="text-center fade-in-up delay-2">
-                 <a href="https://wa.me/message/NPMGOGVPACEFN1?src=qr" target="_blank" class="innovative-cta">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.92-9.91zM17.13 15.44c-.21.12-.76.38-1.09.22-.26-.12-.88-.88-1-1.03s-.12-.22 0-.33c.12-.12.26-.33.39-.47.1-.12.16-.22.22-.33.06-.12 0-.22-.06-.33-.06-.12-.53-.65-.72-.88-.19-.23-.38-.19-.53-.19h-.12c-.12 0-.33.06-.47.22-.15.16-.59.59-.59 1.44 0 .85.6 1.66.68 1.78.08.12 1.18 1.81 2.86 2.53.39.16.71.26.97.33.44.12.85.1.97-.06.15-.19.59-.68.68-.88.09-.21.09-.38.06-.47s-.15-.16-.33-.28z"/></svg>
-                    <span>Chatea con Auro</span>
-                </a>
-            </div>
-             <div class="text-center mt-16 fade-in-up delay-3">
-                <p class="text-gray-700 text-lg">O si prefieres, escríbenos a:</p>
-                <p class="text-blue-600 font-semibold text-xl mt-3 hover:underline">
-                    <a href="mailto:gerencia@auromate.shop">gerencia@auromate.shop</a>
-                </p>
-            </div>
-        </div>
-    </section>
+render();
+</script>
 
-    <footer class="bg-gray-900 text-gray-400 py-16">
-        <div class="container mx-auto px-6 text-center">
-            <a href="#inicio" class="text-2xl font-bold text-white hover:text-blue-400 transition-colors duration-300">Auromate IA</a>
-            <p class="my-4 text-gray-500">&copy; <span id="currentYear"></span> Auromate IA. Todos los derechos reservados.</p>
-            <p class="text-sm">Finanzas inteligentes para LATAM.</p>
-        </div>
-    </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            const b2cToggle = document.getElementById('b2c-toggle');
-            const b2bToggle = document.getElementById('b2b-toggle');
-            const b2cCards = document.getElementById('pricing-b2c');
-            const b2bCards = document.getElementById('pricing-b2b');
-
-            if(b2cToggle && b2bToggle && b2cCards && b2bCards) {
-                b2cToggle.addEventListener('click', () => {
-                    b2cToggle.classList.add('active');
-                    b2bToggle.classList.remove('active');
-                    b2cCards.classList.remove('hidden');
-                    b2bCards.classList.add('hidden');
-                });
-
-                b2bToggle.addEventListener('click', () => {
-                    b2bToggle.classList.add('active');
-                    b2cToggle.classList.remove('active');
-                    b2bCards.classList.remove('hidden');
-                    b2cCards.classList.add('hidden');
-                });
-            }
-
-            const chatMessagesContainer = document.getElementById('chat-messages');
-            if (chatMessagesContainer) {
-                const typingIndicator = document.getElementById('typing-indicator');
-                const conversation = [
-                    { from: 'user', text: 'Ugh, otra vez me quedé sin plata antes de la quincena. ¿En qué se me fue el dinero?' },
-                    { from: 'ai', text: 'Hola! Veo que este mes tus gastos en \'Didi Food\' y \'Salidas\' aumentaron un 30%. 🍔' },
-                    { from: 'ai', text: 'Si reducimos un poco, podrías ahorrar $250.000 COP para tu meta de \'Viaje a Cartagena\' ✈️.' },
-                    { from: 'user', text: 'Wow, increíble. ¿Cómo empezamos?' },
-                    { from: 'ai', text: 'Fácil. He creado un presupuesto inteligente para ti. ¿Quieres verlo?' }
-                ];
-                let messageIndex = 0;
-                function showTyping() { if (typingIndicator) typingIndicator.classList.add('visible'); }
-                function hideTyping() { if (typingIndicator) typingIndicator.classList.remove('visible'); }
-                function addMessage() {
-                    if (messageIndex >= conversation.length) {
-                        setTimeout(() => {
-                            if (chatMessagesContainer) {
-                                chatMessagesContainer.innerHTML = '';
-                                if (typingIndicator) chatMessagesContainer.appendChild(typingIndicator);
-                                messageIndex = 0;
-                                addMessage();
-                            }
-                        }, 5000);
-                        return;
-                    }
-                    const message = conversation[messageIndex];
-                    const bubble = document.createElement('div');
-                    bubble.textContent = message.text;
-                    bubble.className = `chat-bubble ${message.from === 'user' ? 'user-bubble' : 'ai-bubble'}`;
-                    const nextMessageIsAi = conversation[messageIndex + 1] && conversation[messageIndex + 1].from === 'ai';
-                    const autoScroll = () => {
-                        setTimeout(() => {
-                            bubble.classList.add('visible');
-                            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-                        }, 100);
-                    };
-                    if (message.from === 'user') {
-                        chatMessagesContainer.insertBefore(bubble, typingIndicator);
-                        autoScroll();
-                        if (nextMessageIsAi) setTimeout(showTyping, 600);
-                    } else {
-                        hideTyping();
-                        chatMessagesContainer.insertBefore(bubble, typingIndicator);
-                        autoScroll();
-                        if (nextMessageIsAi) setTimeout(showTyping, 1000);
-                    }
-                    messageIndex++;
-                    const delay = message.text.length * 50 + 1500;
-                    setTimeout(addMessage, delay);
-                }
-                setTimeout(() => { showTyping(); setTimeout(addMessage, 1500); }, 1000);
-            }
-
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-            
-            const navbar = document.getElementById('navbar');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('section[id], header[id]'); 
-            const heroText = document.getElementById('hero-text-container');
-            function handleScroll() {
-                if (heroText) {
-                    const triggerPoint = window.innerHeight * 0.4;
-                    if (window.scrollY > triggerPoint) {
-                        heroText.classList.add('scrolled-out');
-                    } else {
-                        heroText.classList.remove('scrolled-out');
-                    }
-                }
-                let currentSectionId = '';
-                const navHeight = navbar.offsetHeight; 
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - navHeight - 50;
-                    const sectionBottom = sectionTop + section.offsetHeight;
-                    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionBottom) {
-                        currentSectionId = section.getAttribute('id');
-                    }
-                });
-                if (!currentSectionId && window.pageYOffset < sections[0].offsetTop) {
-                    currentSectionId = sections[0].getAttribute('id');
-                }
-                if (window.scrollY > 50) {
-                    navbar.classList.add('navbar-scrolled');
-                } else {
-                    navbar.classList.remove('navbar-scrolled');
-                }
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${currentSectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-            window.addEventListener('scroll', handleScroll);
-            window.addEventListener('load', handleScroll); 
-            window.addEventListener('resize', handleScroll);
-            const animatedElements = document.querySelectorAll('.fade-in-up, .animate-innovative-in');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animationPlayState = 'running';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            animatedElements.forEach(el => {
-                el.style.animationPlayState = 'paused'; 
-                observer.observe(el);
-            });
-        });
-    </script>
-</body>
-</html>
+</body></html>
