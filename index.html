@@ -44,7 +44,6 @@ body {
   overflow: hidden;
 }
 
-/* ── TOPBAR ── */
 .topbar {
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
   padding: 18px 20px 16px;
@@ -62,10 +61,8 @@ body {
   display: flex; align-items: center; gap: 5px; white-space: nowrap;
 }
 
-/* ── CONTENT ── */
 .content { padding: 18px 16px 24px; }
 
-/* ── HERO ── */
 .hero {
   background: linear-gradient(135deg, var(--ac) 0%, #1e3fd4 100%);
   border-radius: 16px;
@@ -91,10 +88,7 @@ body {
 }
 .hero-note { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 6px; line-height: 1.5; }
 
-/* ── PHASES ── */
 .phases-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-
-/* Desktop: 3 columnas / Mobile: 1 columna */
 .phases { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 
 @media (min-width: 640px) {
@@ -107,10 +101,6 @@ body {
   border-radius: 14px; padding: 16px;
 }
 .phase.active { background: #fff; border-color: var(--ac-border); box-shadow: 0 2px 12px var(--ac-bg); }
-
-/* En móvil las fases no activas muestran un layout horizontal compacto */
-.phase-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-.phase-header-left {}
 .phase-num {
   font-size: 10px; font-weight: 700; color: var(--ac); text-transform: uppercase;
   letter-spacing: 1px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
@@ -132,7 +122,6 @@ body {
 .phase-items li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--ac); margin-top: 5px; flex-shrink: 0; }
 .phase-items li.green::before { background: var(--green); }
 
-/* ── FREE MONTH BADGE ── */
 .free-badge {
   display: flex; align-items: flex-start; gap: 8px;
   background: var(--gold-bg); border: 1px solid var(--gold-border);
@@ -142,7 +131,6 @@ body {
 .free-badge-icon { font-size: 15px; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
 .free-badge-text { font-size: 11px; color: var(--gold); font-weight: 600; line-height: 1.5; }
 
-/* ── SAVING BANNER ── */
 .saving-banner {
   background: var(--bg2); border: 1px solid var(--border);
   border-radius: 12px; padding: 14px 16px;
@@ -158,17 +146,15 @@ body {
   background: var(--ac); color: #fff; white-space: nowrap; flex-shrink: 0;
 }
 
-/* ── MAIN GRID ── */
 .main-grid { display: flex; flex-direction: column; gap: 12px; }
 @media (min-width: 640px) {
   .main-grid { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); }
 }
 
-.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px 16px; }
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
 .card-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
 .right-col { display: flex; flex-direction: column; gap: 10px; }
 
-/* ── INCLUDES ── */
 .includes { display: flex; flex-direction: column; gap: 5px; }
 .inc-row { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #fff; border-radius: 8px; border: 1px solid var(--border); }
 .inc-text { font-size: 12px; color: var(--text1); flex: 1; }
@@ -178,22 +164,20 @@ body {
 .sep span { font-size: 10px; color: var(--gold); font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; }
 .sep::before, .sep::after { content: ''; flex: 1; height: 1px; background: var(--gold-border); }
 
-/* ── COMPARE ── */
 .cmp-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); }
+.cmp-row:last-of-type { border-bottom: none; }
 .cmp-label { font-size: 12px; color: var(--text2); }
 .cmp-val { font-size: 12px; font-weight: 600; color: var(--danger); }
-.cmp-total { display: flex; justify-content: space-between; padding: 9px 0 0; }
+.cmp-total { display: flex; justify-content: space-between; align-items: center; padding: 9px 0 0; border-top: 2px solid var(--bg3); margin-top: 2px; }
 .bar-wrap { margin-top: 10px; }
 .bar-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--text3); margin-bottom: 4px; }
 .bar-track { height: 7px; background: var(--bg3); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
 .bar-fill { height: 100%; border-radius: 4px; }
 
-/* ── PHILOSOPHY ── */
 .phil-card { background: linear-gradient(135deg,#f7f9ff 0%,#eef1fb 100%); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
 .phil-items { display: flex; flex-direction: column; gap: 7px; }
 .phil-item { display: flex; align-items: flex-start; gap: 9px; padding: 8px 10px; background: #fff; border-radius: 8px; border: 1px solid var(--border); font-size: 12px; color: var(--text1); font-weight: 500; }
 
-/* ── FOOTER ── */
 .footer {
   display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center;
   padding-top: 14px; border-top: 1px solid var(--border); margin-top: 16px;
@@ -207,7 +191,6 @@ body {
 <body>
 <div class="wrap">
 
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="brand">
       <div class="brand-dot"></div>
@@ -217,10 +200,8 @@ body {
     <div class="top-pill"><i class="ti ti-building-store"></i> Implementación en 21–30 días</div>
   </div>
 
-  <!-- CONTENT -->
   <div class="content">
 
-    <!-- HERO -->
     <div class="hero">
       <div class="hero-eyebrow">Empieza desde</div>
       <div class="hero-price">$2.500.000</div>
@@ -229,11 +210,9 @@ body {
       <div class="hero-note">Sin comprometer todo el capital desde el inicio</div>
     </div>
 
-    <!-- PHASES -->
     <div class="phases-title">Estructura de inversión</div>
     <div class="phases">
 
-      <!-- FASE 1 -->
       <div class="phase active">
         <div class="phase-num"><div class="phase-num-circle">1</div> Fase 1 — Inicio</div>
         <div class="phase-price ac">$2.500.000</div>
@@ -248,7 +227,6 @@ body {
         </ul>
       </div>
 
-      <!-- FASE 2 -->
       <div class="phase">
         <div class="phase-num"><div class="phase-num-circle two">2</div> Fase 2 — Entrega</div>
         <div class="phase-price">$2.300.000</div>
@@ -263,7 +241,6 @@ body {
         </ul>
       </div>
 
-      <!-- FASE 3 -->
       <div class="phase">
         <div class="phase-num"><div class="phase-num-circle three">3</div> Fase 3 — Operación</div>
         <div class="phase-price green">$1.200.000</div>
@@ -284,19 +261,18 @@ body {
 
     </div>
 
-    <!-- SAVING BANNER -->
+    <!-- SAVING: ahorro de $18.800.000 vs mensualidad de $1.200.000 -->
     <div class="saving-banner">
       <div class="saving-inner">
         <div class="saving-icon"><i class="ti ti-coin"></i></div>
         <div>
           <div class="saving-label">Ahorras desde</div>
-          <div class="saving-num">~$20.000.000 COP / mes</div>
+          <div class="saving-num">$18.800.000 COP / mes</div>
         </div>
       </div>
       <div class="saving-pct">−94% del costo</div>
     </div>
 
-    <!-- INCLUDES + COMPARE -->
     <div class="main-grid">
       <div class="card">
         <div class="card-title">¿Qué incluye el sistema?</div>
@@ -314,16 +290,15 @@ body {
       </div>
 
       <div class="right-col">
-        <!-- COMPARE -->
         <div class="card">
           <div class="card-title">Sin Auromate — nómina mensual</div>
-          <div class="cmp-row"><span class="cmp-label">Analista de datos</span><span class="cmp-val">~$7.000.000</span></div>
-          <div class="cmp-row"><span class="cmp-label">Asesor rentas / bot</span><span class="cmp-val">~$7.000.000</span></div>
+          <div class="cmp-row"><span class="cmp-label">Analista de datos</span><span class="cmp-val">~$5.000.000</span></div>
+          <div class="cmp-row"><span class="cmp-label">Asesores de ventas</span><span class="cmp-val">~$7.000.000</span></div>
           <div class="cmp-row"><span class="cmp-label">Coordinador comercial</span><span class="cmp-val">~$4.000.000</span></div>
-          <div class="cmp-row" style="border-bottom:none;"><span class="cmp-label">Community Manager</span><span class="cmp-val">~$3.500.000</span></div>
+          <div class="cmp-row"><span class="cmp-label">Community Manager</span><span class="cmp-val">~$3.500.000</span></div>
           <div class="cmp-total">
             <span style="font-size:13px;font-weight:600;color:var(--text1);">Total nómina</span>
-            <span style="font-size:15px;font-weight:700;color:var(--danger);">+$21.500.000</span>
+            <span style="font-size:15px;font-weight:700;color:var(--danger);">~$19.500.000</span>
           </div>
           <div class="bar-wrap">
             <div class="bar-label"><span>Con Auromate</span><span>Sin Auromate</span></div>
@@ -332,7 +307,6 @@ body {
           </div>
         </div>
 
-        <!-- PHILOSOPHY -->
         <div class="phil-card">
           <div class="card-title" style="color:var(--ac);">No estás comprando software</div>
           <div class="phil-items">
@@ -345,7 +319,6 @@ body {
       </div>
     </div>
 
-    <!-- FOOTER -->
     <div class="footer">
       <span class="footer-text">Inversión por fases para facilitar el inicio sin comprometer liquidez</span>
       <span class="footer-text">auromate · automatización inteligente</span>
